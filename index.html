@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Intelligent Access Verification System</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+<!-- ================= HEADER ================= -->
+
+<header class="top-header">
+
+    <div>
+
+        <h1>Intelligent Access Verification System</h1>
+
+        <p>
+            High-Security Biomedical Research Laboratory
+        </p>
+
+    </div>
+
+    <div class="system-status">
+
+        <span class="status-dot"></span>
+
+        SYSTEM ONLINE
+
+    </div>
+
+</header>
+
+
+<!-- ================= NAVIGATION ================= -->
+
+<nav>
+
+    <button
+        class="nav-button active"
+        onclick="showPage('researcherPage')">
+
+        Researcher Portal
+
+    </button>
+
+
+    <button
+        class="nav-button"
+        onclick="showPage('adminPage')">
+
+        Security Officer Dashboard
+
+    </button>
+
+</nav>
+
+
+<!-- =====================================================
+     RESEARCHER PORTAL
+===================================================== -->
+
+<section id="researcherPage" class="page active-page">
+
+
+    <div class="page-title">
+
+        <h2>Researcher Access Portal</h2>
+
+        <p>
+            Request access to authorized laboratory zones
+        </p>
+
+    </div>
+
+
+    <div class="dashboard-grid">
+
+
+        <!-- ACCESS REQUEST -->
+
+        <div class="card">
+
+            <h3>🔐 Request Laboratory Access</h3>
+
+            <label>
+                Researcher ID
+            </label>
+
+            <input
+                type="number"
+                id="researcherID"
+                placeholder="Example: 101">
+
+
+            <label>
+                Requested Laboratory
+            </label>
+
+            <select id="requestedZone">
+
+                <option value="LAB1">
+                    LAB1 - Biomedical Research
+                </option>
+
+                <option value="LAB2">
+                    LAB2 - Chemical Analysis
+                </option>
+
+                <option value="LAB3">
+                    LAB3 - Storage
+                </option>
+
+            </select>
+
+
+            <button
+                class="primary-button"
+                onclick="requestAccess()">
+
+                REQUEST ACCESS
+
+            </button>
+
+        </div>
+
+
+        <!-- RESEARCHER INFORMATION -->
+
+        <div class="card">
+
+            <h3>👤 Researcher Information</h3>
+
+            <div class="info-box">
+
+                <span>Name</span>
+
+                <strong id="researcherName">
+                    —
+                </strong>
+
+            </div>
+
+
+            <div class="info-box">
+
+                <span>Authorized Zone</span>
+
+                <strong id="authorizedZone">
+                    —
+                </strong>
+
+            </div>
+
+
+            <div class="info-box">
+
+                <span>Permission</span>
+
+                <strong id="researcherPermission">
+                    —
+                </strong>
+
+            </div>
+
+
+            <div class="info-box">
+
+                <span>Access Status</span>
+
+                <strong id="researcherStatus">
+                    —
+                </strong>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- SECURITY VERIFICATION -->
+
+    <div class="card">
+
+        <h3>🛡️ Security Verification</h3>
+
+
+        <div class="verification-grid">
+
+
+            <div class="verification-item">
+
+                <span>Authentication</span>
+
+                <strong id="authentication">
+                    Waiting
+                </strong>
+
+            </div>
+
+
+            <div class="verification-item">
+
+                <span>Authorization</span>
+
+                <strong id="authorization">
+                    Waiting
+                </strong>
+
+            </div>
+
+
+            <div class="verification-item">
+
+                <span>Permission</span>
+
+                <strong id="permission">
+                    Waiting
+                </strong>
+
+            </div>
+
+
+            <div class="verification-item">
+
+                <span>Revocation</span>
+
+                <strong id="revocation">
+                    Waiting
+                </strong>
+
+            </div>
+
+
+            <div class="verification-item">
+
+                <span>Emergency Lockdown</span>
+
+                <strong id="lockdown">
+                    Waiting
+                </strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ACCESS DECISION -->
+
+    <div class="result-card">
+
+        <h3>Access Decision</h3>
+
+        <div id="result">
+
+            Waiting for access request...
+
+        </div>
+
+    </div>
+
+
+    <!-- RESEARCHER HISTORY -->
+
+    <div class="card">
+
+        <h3>📋 Recent Access History</h3>
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Researcher ID</th>
+
+                    <th>Name</th>
+
+                    <th>Zone</th>
+
+                    <th>Decision</th>
+
+                    <th>Time</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody id="researcherHistory">
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     SECURITY OFFICER DASHBOARD
+===================================================== -->
+
+<section id="adminPage" class="page">
+
+
+    <div class="page-title">
+
+        <h2>Security Officer Dashboard</h2>
+
+        <p>
+            Monitor researchers, requests and laboratory security
+        </p>
+
+    </div>
+
+
+    <!-- STATISTICS -->
+
+    <div class="statistics-grid">
+
+
+        <div class="stat-card">
+
+            <span>👥</span>
+
+            <h3 id="totalResearchers">
+                0
+            </h3>
+
+            <p>Researchers</p>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <span>📥</span>
+
+            <h3 id="totalRequests">
+                0
+            </h3>
+
+            <p>Total Requests</p>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <span>🟢</span>
+
+            <h3 id="grantedRequests">
+                0
+            </h3>
+
+            <p>Granted</p>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <span>🔴</span>
+
+            <h3 id="deniedRequests">
+                0
+            </h3>
+
+            <p>Denied</p>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- EMERGENCY CONTROL -->
+
+    <div class="card emergency-card">
+
+        <div>
+
+            <h3>🚨 Emergency Security Control</h3>
+
+            <p id="lockdownMessage">
+
+                Emergency lockdown is currently disabled.
+
+            </p>
+
+        </div>
+
+
+        <button
+            id="lockdownButton"
+            class="danger-button"
+            onclick="toggleLockdown()">
+
+            ENABLE LOCKDOWN
+
+        </button>
+
+    </div>
+
+
+
+    <!-- RESEARCHER MANAGEMENT -->
+
+    <div class="card">
+
+        <h3>👥 Registered Researchers</h3>
+
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>ID</th>
+
+                    <th>Name</th>
+
+                    <th>Authorized Zone</th>
+
+                    <th>Permission</th>
+
+                    <th>Revoked</th>
+
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody id="researcherTable">
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+
+    <!-- REQUEST HISTORY -->
+
+    <div class="card">
+
+        <h3>📋 Security Activity</h3>
+
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>ID</th>
+
+                    <th>Name</th>
+
+                    <th>Zone</th>
+
+                    <th>Decision</th>
+
+                    <th>Reason</th>
+
+                    <th>Time</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody id="adminHistory">
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
